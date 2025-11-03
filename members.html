@@ -858,29 +858,24 @@
                 menuOverlay.addEventListener('click', toggleMenu);
             }
             
-            // Close menu when navigation happens - don't interfere with clicks
-            const navLinks = document.querySelectorAll('.nav-links a');
-            navLinks.forEach(link => {
-                // Use setTimeout to let navigation happen first, then close menu
-                link.addEventListener('click', function(e) {
-                    if (window.innerWidth <= 768) {
-                        // Small delay to let navigation start
-                        setTimeout(function() {
-                            if (mainNav.classList.contains('active')) {
-                                toggleMenu();
-                            }
-                        }, 100);
-                    }
-                });
+            // DON'T add click handlers to links - let them work naturally
+            // Close menu when page unloads (navigation happening)
+            window.addEventListener('beforeunload', function() {
+                if (mainNav.classList.contains('active')) {
+                    mainNav.classList.remove('active');
+                    mobileMenuToggle.classList.remove('active');
+                    if (menuOverlay) menuOverlay.classList.remove('active');
+                    document.body.style.overflow = '';
+                }
+            });
+            
+            // Close menu when page becomes hidden (user navigated away)
+            document.addEventListener('visibilitychange', function() {
+                if (document.hidden && mainNav.classList.contains('active')) {
+                    toggleMenu();
+                }
             });
         }
-        
-        // Close menu if page becomes hidden (user navigated away)
-        document.addEventListener('visibilitychange', function() {
-            if (document.hidden && mainNav.classList.contains('active')) {
-                toggleMenu();
-            }
-        });
     </script>
 </body>
 </html>
