@@ -1,0 +1,852 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="format-detection" content="telephone=no">
+    <title>Members Area - The Flag Crusaders</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Playfair+Display:wght@700;900&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: #0a0a0a;
+            background-image: radial-gradient(circle at 20% 50%, rgba(220, 20, 60, 0.03) 0%, transparent 50%),
+                              radial-gradient(circle at 80% 50%, rgba(255, 221, 0, 0.03) 0%, transparent 50%);
+            color: #f5f5f5;
+            line-height: 1.7;
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Header */
+        .header {
+            background: rgba(10, 10, 10, 0.8);
+            backdrop-filter: blur(20px) saturate(180%);
+            -webkit-backdrop-filter: blur(20px) saturate(180%);
+            padding: 20px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 1px 0 rgba(255, 255, 255, 0.05);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        .header-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .logo-text {
+            font-size: 1.6rem;
+            font-weight: 700;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            background: linear-gradient(135deg, #dc143c 0%, #ff6b6b 50%, #ffdd00 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            transition: all 0.3s ease;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 8px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: #d0d0d0;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.9rem;
+            padding: 10px 18px;
+            border-radius: 10px;
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .nav-links a:hover {
+            color: #ffffff;
+            background: rgba(220, 20, 60, 0.12);
+            transform: translateY(-1px);
+        }
+
+        /* Login Screen */
+        .login-container {
+            min-height: calc(100vh - 200px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 60px 20px;
+        }
+
+        .login-box {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 2px solid rgba(220, 20, 60, 0.3);
+            border-radius: 20px;
+            padding: 50px 40px;
+            max-width: 500px;
+            width: 100%;
+            text-align: center;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+        }
+
+        .login-box h2 {
+            color: #ffdd00;
+            font-size: 2rem;
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+
+        .login-box p {
+            color: #d0d0d0;
+            margin-bottom: 30px;
+            line-height: 1.8;
+        }
+
+        .login-box .donate-note {
+            background: rgba(220, 20, 60, 0.1);
+            border-left: 4px solid #dc143c;
+            padding: 20px;
+            margin-bottom: 30px;
+            border-radius: 8px;
+            text-align: left;
+        }
+
+        .login-box .donate-note strong {
+            color: #ffdd00;
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+
+        .form-group label {
+            display: block;
+            color: #ffffff;
+            margin-bottom: 8px;
+            font-weight: 600;
+            font-size: 0.95rem;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 14px 18px;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 10px;
+            color: #ffffff;
+            font-size: 1rem;
+            font-family: inherit;
+            transition: all 0.3s ease;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: #dc143c;
+            background: rgba(255, 255, 255, 0.06);
+        }
+
+        .btn {
+            padding: 16px 36px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            letter-spacing: 0.3px;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            text-decoration: none;
+            border: none;
+            display: inline-block;
+            width: 100%;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #dc143c 0%, #e63946 100%);
+            color: #ffffff;
+            box-shadow: 0 4px 15px rgba(220, 20, 60, 0.25);
+        }
+
+        .btn-primary:hover {
+            background: linear-gradient(135deg, #c1121f 0%, #dc143c 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(220, 20, 60, 0.4);
+        }
+
+        .error-message {
+            background: rgba(220, 20, 60, 0.2);
+            border: 1px solid #dc143c;
+            color: #ffdd00;
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            display: none;
+        }
+
+        /* Members Content */
+        .members-content {
+            display: none;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 60px 40px;
+        }
+
+        .members-content.active {
+            display: block;
+        }
+
+        .members-header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .members-header h1 {
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, #ffdd00 0%, #dc143c 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .members-header p {
+            color: #ffdd00;
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
+
+        .logout-btn {
+            position: absolute;
+            top: 20px;
+            right: 40px;
+            background: rgba(220, 20, 60, 0.2);
+            border: 1px solid #dc143c;
+            color: #ffffff;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .logout-btn:hover {
+            background: rgba(220, 20, 60, 0.4);
+        }
+
+        .exclusive-section {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 20px;
+            padding: 40px;
+            margin-bottom: 30px;
+            backdrop-filter: blur(10px);
+        }
+
+        .exclusive-section h2 {
+            color: #ffdd00;
+            font-size: 2rem;
+            margin-bottom: 20px;
+            font-weight: 700;
+            border-bottom: 2px solid rgba(220, 20, 60, 0.3);
+            padding-bottom: 15px;
+        }
+
+        .exclusive-section h3 {
+            color: #dc143c;
+            font-size: 1.5rem;
+            margin-top: 25px;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        .exclusive-section p {
+            color: #d0d0d0;
+            line-height: 1.8;
+            margin-bottom: 15px;
+        }
+
+        .exclusive-section strong {
+            color: #ffffff;
+        }
+
+        .update-item {
+            background: rgba(220, 20, 60, 0.05);
+            border-left: 4px solid #dc143c;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+        }
+
+        .update-item .date {
+            color: #ffdd00;
+            font-weight: 600;
+            font-size: 0.9rem;
+            margin-bottom: 10px;
+        }
+
+        .update-item h4 {
+            color: #ffffff;
+            margin-bottom: 10px;
+            font-size: 1.2rem;
+        }
+
+        .update-item p {
+            margin-bottom: 8px;
+        }
+
+        /* Footer */
+        .footer {
+            background: linear-gradient(180deg, #0a0a0a 0%, #050505 100%);
+            padding: 60px 20px 40px;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+            text-align: center;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer h3 {
+            color: #ffdd00;
+            font-size: 1.75rem;
+            margin-bottom: 16px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-weight: 700;
+        }
+
+        .footer p {
+            font-size: 1rem;
+            color: #b8b8b8;
+            margin-bottom: 12px;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin: 30px 0;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            color: #d0d0d0;
+            text-decoration: none;
+            font-weight: 500;
+            text-transform: none;
+            letter-spacing: 0.3px;
+            transition: all 0.25s ease;
+            padding: 4px 8px;
+            border-radius: 6px;
+        }
+
+        .footer-links a:hover {
+            color: #ffdd00;
+            background: rgba(255, 221, 0, 0.1);
+        }
+
+        .copyright {
+            margin-top: 40px;
+            padding-top: 24px;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+            color: #888888;
+            font-size: 0.9rem;
+        }
+
+        /* Mobile Menu Toggle */
+        .mobile-menu-toggle {
+            display: none;
+            background: transparent;
+            border: 2px solid rgba(220, 20, 60, 0.5);
+            color: #ffdd00;
+            padding: 10px 15px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1.5rem;
+            transition: all 0.3s ease;
+            min-height: 44px;
+            min-width: 44px;
+        }
+
+        .mobile-menu-toggle:hover {
+            background: rgba(220, 20, 60, 0.2);
+            border-color: #dc143c;
+        }
+
+        .mobile-menu-toggle.active {
+            background: rgba(220, 20, 60, 0.3);
+        }
+
+        .menu-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 9998;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .menu-overlay.active {
+            display: block;
+            opacity: 1;
+        }
+
+        @media (max-width: 768px) {
+            body {
+                -webkit-text-size-adjust: 100%;
+                -webkit-tap-highlight-color: rgba(220, 20, 60, 0.3);
+            }
+
+            .header-content {
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: center;
+                padding: 15px 20px;
+            }
+
+            .mobile-menu-toggle {
+                display: block;
+            }
+
+            .logo-text {
+                font-size: 1.2rem;
+                letter-spacing: 2px;
+            }
+
+            nav {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 80%;
+                max-width: 300px;
+                height: 100vh;
+                background: rgba(30, 30, 35, 0.98);
+                backdrop-filter: blur(20px);
+                -webkit-backdrop-filter: blur(20px);
+                z-index: 9999;
+                transition: right 0.3s ease;
+                padding: 80px 20px 20px;
+                border-left: 2px solid rgba(255, 221, 0, 0.3);
+                box-shadow: -5px 0 20px rgba(0, 0, 0, 0.5);
+            }
+
+            nav.active {
+                right: 0;
+            }
+
+            .nav-links {
+                flex-direction: column;
+                width: 100%;
+                gap: 8px;
+                list-style: none;
+                padding: 0;
+                margin: 0;
+            }
+
+            .nav-links li {
+                margin: 0;
+                padding: 0;
+            }
+
+            .nav-links a {
+                display: block;
+                padding: 18px 20px;
+                font-size: 1.1rem;
+                min-height: 50px;
+                display: flex;
+                align-items: center;
+                color: #ffffff !important;
+                background: rgba(255, 255, 255, 0.05);
+                border-radius: 8px;
+                border: 1px solid rgba(255, 255, 255, 0.1);
+                text-decoration: none;
+                transition: all 0.3s ease;
+                font-weight: 500;
+                cursor: pointer;
+                -webkit-tap-highlight-color: rgba(255, 221, 0, 0.3);
+            }
+
+            .nav-links a:hover,
+            .nav-links a:active,
+            .nav-links a:focus {
+                background: rgba(255, 221, 0, 0.15) !important;
+                color: #ffdd00 !important;
+                border-color: rgba(255, 221, 0, 0.4);
+                transform: translateX(5px);
+            }
+
+            .members-header h1 {
+                font-size: 2rem;
+            }
+
+            .logout-btn {
+                position: relative;
+                top: 0;
+                right: 0;
+                margin: 20px 0;
+            }
+
+            input, textarea, select {
+                font-size: 16px !important;
+                min-height: 44px;
+            }
+
+            .btn {
+                min-height: 44px;
+                padding: 16px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .members-header h1 {
+                font-size: 1.75rem;
+            }
+
+            .logo-text {
+                font-size: 1rem;
+                letter-spacing: 1px;
+            }
+
+            nav {
+                width: 85%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-content">
+            <div class="logo">
+                <div class="logo-text">⚔️ THE FLAG CRUSADERS</div>
+            </div>
+            <button class="mobile-menu-toggle" id="mobileMenuToggle" aria-label="Toggle menu">☰</button>
+            <nav id="mainNav">
+                <ul class="nav-links">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="flag-ninjas.html">Flag Ninjas</a></li>
+                    <li><a href="gallery.html">Gallery</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                    <li><a href="newsletter.html">Newsletter</a></li>
+                    <li><a href="donate.html">Donate</a></li>
+                    <li><a href="members.html">Members</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    <div class="menu-overlay" id="menuOverlay"></div>
+
+    <!-- Login Screen -->
+    <div class="login-container" id="loginScreen">
+        <div class="login-box">
+            <h2>🔒 Members Only Area</h2>
+            <p>Exclusive content for Flag Crusaders supporters</p>
+            
+            <div class="donate-note">
+                <strong>⚔️ Become a Member</strong>
+                <p>Membership is granted to those who support our mission through donations. After donating, you will receive exclusive access credentials to this members-only area containing:</p>
+                <ul style="margin-top: 10px; padding-left: 20px; color: #d0d0d0;">
+                    <li>Exclusive Flag Ninjas intelligence and updates</li>
+                    <li>Behind-the-scenes mission reports</li>
+                    <li>Early access to new information</li>
+                    <li>Direct communication channels</li>
+                </ul>
+                <p style="margin-top: 15px; color: #ffdd00;">
+                    <a href="donate.html" style="color: #ffdd00; text-decoration: underline; font-weight: 600;">Donate now to gain access →</a>
+                </p>
+            </div>
+
+            <form id="loginForm">
+                <div class="error-message" id="errorMessage">
+                    Invalid access credentials. Please check your username and password.
+                </div>
+                <div class="form-group">
+                    <label for="username">Username / Access Code</label>
+                    <input type="text" id="username" name="username" required autocomplete="username">
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password" required autocomplete="current-password">
+                </div>
+                <button type="submit" class="btn btn-primary">Access Members Area</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Members Content -->
+    <div class="members-content" id="membersContent">
+        <button class="logout-btn" onclick="logout()">Logout</button>
+        
+        <div class="members-header">
+            <h1>⚔️ Members Area</h1>
+            <p>Exclusive Content for Flag Crusaders Supporters</p>
+        </div>
+
+        <div class="exclusive-section">
+            <h2>🕵️ Flag Ninjas Intelligence Updates</h2>
+            
+            <div class="update-item">
+                <div class="date">Latest Update - Ongoing</div>
+                <h4>Flag Ninjas Activity Patterns</h4>
+                <p>
+                    <strong>Our surveillance and community reports have identified patterns in Flag Ninjas operations:</strong> They typically operate between 11 PM and 3 AM, targeting newly installed flags within 24-48 hours. We've documented their methods and are tracking their movements across Kent.
+                </p>
+                <p>
+                    <strong>Current Status:</strong> We have identified multiple locations where they have been active. Our team is monitoring these areas and documenting all incidents for our legal case.
+                </p>
+            </div>
+
+            <div class="update-item">
+                <div class="date">Recent Intelligence</div>
+                <h4>Donation Page Investigation</h4>
+                <p>
+                    <strong>Their Buy Me a Coffee page</strong> (https://buymeacoffee.com/favninjas) continues to receive funding from 87 supporters as of 3rd November 2025. We are documenting all available information about this page and its supporters as part of our legal case.
+                </p>
+                <p>
+                    <strong>Legal Action:</strong> Our legal team is investigating whether the donation platform can be held accountable for facilitating funding of criminal activities. We are building a comprehensive case that includes evidence of the direct link between donations and criminal acts.
+                </p>
+            </div>
+
+            <div class="update-item">
+                <div class="date">Ongoing</div>
+                <h4>Evidence Collection</h4>
+                <p>
+                    <strong>We are actively collecting:</strong>
+                </p>
+                <ul style="margin: 10px 0; padding-left: 25px; color: #d0d0d0;">
+                    <li>Photographic evidence of theft and vandalism</li>
+                    <li>Witness statements from community members</li>
+                    <li>Financial records showing over £1,000 in stolen property</li>
+                    <li>Documentation of cable ties left behind (vandalism evidence)</li>
+                    <li>Reports of armed activity and weapons sightings</li>
+                    <li>Vehicle vandalism reports with repair costs</li>
+                </ul>
+                <p style="margin-top: 15px;">
+                    <strong>If you have any information or evidence, please contact us through the contact page. Your information could be crucial to our case.</strong>
+                </p>
+            </div>
+        </div>
+
+        <div class="exclusive-section">
+            <h2>⚔️ Ongoing Missions & Operations</h2>
+            
+            <div class="update-item">
+                <div class="date">Active Mission</div>
+                <h4>Flag Campaign - Kent Coverage</h4>
+                <p>
+                    <strong>Current Operations:</strong> We continue our flag campaigns across Kent, replacing stolen flags and maintaining our displays. Despite ongoing theft, we remain committed to honoring our fallen heroes.
+                </p>
+                <p>
+                    <strong>Maintenance Protocol:</strong> Our team conducts regular maintenance on all flag displays, ensuring they remain in the most presentable condition. We also remove cable ties left behind by The Flag Ninjas, cleaning up after their vandalism.
+                </p>
+                <p>
+                    <strong>Safety Measures:</strong> Due to reports of armed individuals, we have implemented safety protocols for all flag installation operations. Team members are briefed on security measures and we maintain communication throughout operations.
+                </p>
+            </div>
+
+            <div class="update-item">
+                <div class="date">Legal Mission</div>
+                <h4>Building Our Case</h4>
+                <p>
+                    <strong>Legal Proceedings:</strong> We are working with legal professionals to build a comprehensive case against The Flag Ninjas and their supporters. With over £1,000 in stolen property, this represents a substantial amount of theft under UK law.
+                </p>
+                <p>
+                    <strong>Key Legal Points:</strong>
+                </p>
+                <ul style="margin: 10px 0; padding-left: 25px; color: #d0d0d0;">
+                    <li>Theft Act 1968 - Theft of property over £1,000</li>
+                    <li>Criminal Damage Act 1971 - Vandalism and property damage</li>
+                    <li>Proceeds of Crime Act 2002 - Confiscation of assets from criminal conduct</li>
+                    <li>Aggravating factors: Systematic, repeated theft with substantial value</li>
+                </ul>
+                <p style="margin-top: 15px;">
+                    <strong>We are committed to ensuring those responsible face the full force of the law.</strong>
+                </p>
+            </div>
+        </div>
+
+        <div class="exclusive-section">
+            <h2>📊 Current Statistics</h2>
+            <h3>Financial Impact</h3>
+            <p>
+                <strong>Total Value of Stolen Flags:</strong> Over £1,000<br>
+                <strong>Vehicle Repair Costs:</strong> Hundreds of pounds<br>
+                <strong>Flag Ninjas Supporters:</strong> 87 (as of 3rd November 2025)<br>
+                <strong>Legal Case Status:</strong> Evidence collection and case building in progress
+            </p>
+            
+            <h3>Operations Status</h3>
+            <p>
+                <strong>Flag Campaigns:</strong> Active across Kent<br>
+                <strong>Maintenance:</strong> Regular inspections and upkeep<br>
+                <strong>Security:</strong> Enhanced protocols due to armed activity reports<br>
+                <strong>Community Support:</strong> Growing network of witnesses and informants
+            </p>
+        </div>
+
+        <div class="exclusive-section">
+            <h2>💬 How You Can Help</h2>
+            <h3>Report Information</h3>
+            <p>
+                If you witness Flag Ninjas activity, vandalism, or have any information that could help our case:
+            </p>
+            <ul style="margin: 15px 0; padding-left: 25px; color: #d0d0d0;">
+                <li>Document incidents with photos if safe to do so</li>
+                <li>Note dates, times, and locations</li>
+                <li>Report any weapons sightings</li>
+                <li>Contact us through the contact page with any intelligence</li>
+            </ul>
+            
+            <h3>Support Our Mission</h3>
+            <p>
+                Your continued support through donations helps us:
+            </p>
+            <ul style="margin: 15px 0; padding-left: 25px; color: #d0d0d0;">
+                <li>Replace stolen flags</li>
+                <li>Fund legal proceedings</li>
+                <li>Maintain our operations</li>
+                <li>Continue honoring our fallen heroes</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <h3>⚔️ THE FLAG CRUSADERS ⚔️</h3>
+            <p>KNIGHTS OF ENGLAND</p>
+            <p>Protecting British Values One Flag at a Time</p>
+            <div class="footer-links">
+                <a href="index.html">Home</a>
+                <a href="flag-ninjas.html">Flag Ninjas</a>
+                <a href="gallery.html">Gallery</a>
+                <a href="contact.html">Contact</a>
+                <a href="newsletter.html">Newsletter</a>
+                <a href="donate.html">Support Us</a>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2024 The Flag Crusaders. Proudly Defending England. 🇬🇧</p>
+                <p style="margin-top: 10px; font-size: 0.9rem;">Stand Up For British Values | Stand Against Corruption | Stand Guard For Our People</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Simple authentication system using localStorage
+        // In production, this would be replaced with proper server-side authentication
+        
+        // Check if user is already logged in
+        function checkAuth() {
+            const isAuthenticated = localStorage.getItem('flagCrusadersMember') === 'authenticated';
+            if (isAuthenticated) {
+                document.getElementById('loginScreen').style.display = 'none';
+                document.getElementById('membersContent').classList.add('active');
+            } else {
+                document.getElementById('loginScreen').style.display = 'flex';
+                document.getElementById('membersContent').classList.remove('active');
+            }
+        }
+
+        // Login form handler
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            const errorMessage = document.getElementById('errorMessage');
+
+            // Simple authentication - in production, this would check against a database
+            // For now, using a default credential system
+            // After donation, users would receive unique credentials
+            const validCredentials = {
+                // Default test credentials - replace with actual system
+                'member': 'crusader2024',
+                'supporter': 'flagdefender',
+                'patriot': 'england2024'
+            };
+
+            if (validCredentials[username.toLowerCase()] && validCredentials[username.toLowerCase()] === password) {
+                localStorage.setItem('flagCrusadersMember', 'authenticated');
+                localStorage.setItem('flagCrusadersUsername', username);
+                checkAuth();
+                errorMessage.style.display = 'none';
+            } else {
+                errorMessage.style.display = 'block';
+                document.getElementById('password').value = '';
+            }
+        });
+
+        // Logout function
+        function logout() {
+            localStorage.removeItem('flagCrusadersMember');
+            localStorage.removeItem('flagCrusadersUsername');
+            checkAuth();
+        }
+
+        // Initialize on page load
+        checkAuth();
+    </script>
+
+    <script>
+        // Mobile menu toggle
+        const mobileMenuToggle = document.getElementById('mobileMenuToggle');
+        const mainNav = document.getElementById('mainNav');
+        const menuOverlay = document.getElementById('menuOverlay');
+
+        function toggleMenu() {
+            mainNav.classList.toggle('active');
+            mobileMenuToggle.classList.toggle('active');
+            menuOverlay.classList.toggle('active');
+            document.body.style.overflow = mainNav.classList.contains('active') ? 'hidden' : '';
+        }
+
+        if (mobileMenuToggle) {
+            mobileMenuToggle.addEventListener('click', toggleMenu);
+            menuOverlay.addEventListener('click', toggleMenu);
+            
+            const navLinks = document.querySelectorAll('.nav-links a');
+            navLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    if (window.innerWidth <= 768) {
+                        toggleMenu();
+                    }
+                });
+            });
+        }
+    </script>
+</body>
+</html>
+
