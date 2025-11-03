@@ -349,36 +349,7 @@
         }
 
         /* Overlay for mobile menu */
-        .menu-overlay {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.7);
-            z-index: 9998;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-            pointer-events: none;
-        }
-
-        .menu-overlay.active {
-            display: block;
-            opacity: 1;
-            pointer-events: auto;
-            z-index: 10000;
-        }
-        
-        /* Ensure nav is always above overlay */
-        nav.active {
-            z-index: 10001 !important;
-        }
-        
-        nav.active .nav-links a {
-            z-index: 10002 !important;
-            position: relative;
-        }
+        /* Remove overlay completely - not needed */
 
 
         @media (max-width: 768px) {
@@ -409,20 +380,21 @@
                 left: 0;
                 right: 0;
                 width: 100%;
-                background: rgba(70, 70, 75, 0.98);
-                backdrop-filter: blur(20px);
-                -webkit-backdrop-filter: blur(20px);
-                z-index: 10001;
+                background: linear-gradient(135deg, rgba(40, 40, 45, 0.99) 0%, rgba(50, 50, 55, 0.99) 100%);
+                backdrop-filter: blur(30px);
+                -webkit-backdrop-filter: blur(30px);
+                z-index: 99999;
                 max-height: 0;
                 overflow: hidden;
-                transition: max-height 0.3s ease;
-                box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
-                pointer-events: auto;
+                transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+                box-shadow: 0 10px 40px rgba(0, 0, 0, 0.8);
+                border-bottom: 3px solid transparent;
             }
 
             nav.active {
-                max-height: 500px;
-                border-bottom: 3px solid rgba(255, 221, 0, 0.5);
+                max-height: 600px;
+                border-bottom: 3px solid rgba(255, 221, 0, 0.8);
+                overflow-y: auto;
             }
 
             .nav-links {
@@ -430,7 +402,7 @@
                 width: 100%;
                 gap: 0;
                 list-style: none;
-                padding: 20px;
+                padding: 15px 0;
                 margin: 0;
             }
 
@@ -438,34 +410,54 @@
                 margin: 0;
                 padding: 0;
                 width: 100%;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            }
+
+            .nav-links li:last-child {
+                border-bottom: none;
             }
 
             .nav-links a {
                 display: block;
-                padding: 20px;
-                font-size: 1.2rem;
-                min-height: 60px;
+                padding: 22px 25px;
+                font-size: 1.25rem;
+                min-height: 66px;
                 width: 100%;
                 color: #ffffff !important;
-                background: rgba(255, 255, 255, 0.1);
-                border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+                background: transparent;
                 text-decoration: none !important;
-                transition: all 0.2s ease;
+                transition: all 0.25s ease;
                 font-weight: 600;
                 cursor: pointer;
-                pointer-events: auto !important;
+                text-align: left;
+                position: relative;
+                -webkit-tap-highlight-color: rgba(255, 221, 0, 0.4);
                 touch-action: manipulation;
-                -webkit-tap-highlight-color: rgba(255, 221, 0, 0.5);
-                user-select: none;
-                text-align: center;
+            }
+
+            .nav-links a::before {
+                content: '';
+                position: absolute;
+                left: 0;
+                top: 0;
+                bottom: 0;
+                width: 4px;
+                background: rgba(255, 221, 0, 0);
+                transition: all 0.25s ease;
             }
 
             .nav-links a:active,
             .nav-links a:hover,
             .nav-links a:focus {
-                background: rgba(255, 221, 0, 0.3) !important;
+                background: rgba(255, 221, 0, 0.15) !important;
                 color: #ffdd00 !important;
-                border-bottom-color: rgba(255, 221, 0, 0.5);
+                padding-left: 30px;
+            }
+
+            .nav-links a:active::before,
+            .nav-links a:hover::before,
+            .nav-links a:focus::before {
+                background: rgba(255, 221, 0, 0.8);
             }
 
             .page-header {
@@ -658,38 +650,34 @@
         // Mobile menu toggle
         const mobileMenuToggle = document.getElementById('mobileMenuToggle');
         const mainNav = document.getElementById('mainNav');
-        const menuOverlay = document.getElementById('menuOverlay');
 
         function toggleMenu() {
             mainNav.classList.toggle('active');
             mobileMenuToggle.classList.toggle('active');
-            menuOverlay.classList.toggle('active');
             document.body.style.overflow = mainNav.classList.contains('active') ? 'hidden' : '';
         }
 
         if (mobileMenuToggle) {
-            mobileMenuToggle.addEventListener('click', toggleMenu);
+            mobileMenuToggle.addEventListener('click', function(e) {
+                e.stopPropagation();
+                toggleMenu();
+            });
             
-            // Close overlay when clicked
-            if (menuOverlay) {
-                menuOverlay.addEventListener('click', toggleMenu);
-            }
+            // Close menu when clicking outside (on body)
+            document.addEventListener('click', function(e) {
+                if (mainNav.classList.contains('active')) {
+                    if (!mainNav.contains(e.target) && !mobileMenuToggle.contains(e.target)) {
+                        toggleMenu();
+                    }
+                }
+            });
             
-            // DON'T add click handlers to links - let them work naturally
             // Close menu when page unloads (navigation happening)
             window.addEventListener('beforeunload', function() {
                 if (mainNav.classList.contains('active')) {
                     mainNav.classList.remove('active');
                     mobileMenuToggle.classList.remove('active');
-                    if (menuOverlay) menuOverlay.classList.remove('active');
                     document.body.style.overflow = '';
-                }
-            });
-            
-            // Close menu when page becomes hidden (user navigated away)
-            document.addEventListener('visibilitychange', function() {
-                if (document.hidden && mainNav.classList.contains('active')) {
-                    toggleMenu();
                 }
             });
         }
