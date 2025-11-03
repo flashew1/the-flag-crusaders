@@ -533,7 +533,6 @@
             </nav>
         </div>
     </header>
-    <div class="menu-overlay" id="menuOverlay"></div>
 
     <!-- Page Header -->
     <section class="page-header">
@@ -663,9 +662,36 @@
                 toggleMenu();
             });
             
-            // Close menu when clicking outside (on body)
+            // Handle mobile touch events for links
+            const navLinks = document.querySelectorAll('.nav-links a');
+            navLinks.forEach(link => {
+                // Use touchstart for mobile - allows navigation
+                link.addEventListener('touchstart', function(e) {
+                    if (window.innerWidth <= 768) {
+                        // Close menu after a tiny delay to let navigation start
+                        setTimeout(function() {
+                            if (mainNav.classList.contains('active')) {
+                                toggleMenu();
+                            }
+                        }, 100);
+                    }
+                }, { passive: true });
+            });
+            
+            // Close menu when clicking outside (but NOT on links)
             document.addEventListener('click', function(e) {
                 if (mainNav.classList.contains('active')) {
+                    // Don't close if clicking on a link - let it navigate
+                    if (e.target.closest('a')) {
+                        // Link clicked - let it navigate, close menu after
+                        setTimeout(function() {
+                            if (mainNav.classList.contains('active')) {
+                                toggleMenu();
+                            }
+                        }, 50);
+                        return;
+                    }
+                    // Close if clicking outside menu
                     if (!mainNav.contains(e.target) && !mobileMenuToggle.contains(e.target)) {
                         toggleMenu();
                     }
