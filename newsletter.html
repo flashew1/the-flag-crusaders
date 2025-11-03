@@ -269,11 +269,19 @@
             z-index: 9998;
             opacity: 0;
             transition: opacity 0.3s ease;
+            pointer-events: none;
         }
 
         .menu-overlay.active {
             display: block;
             opacity: 1;
+            pointer-events: auto;
+        }
+
+        /* Ensure nav links are above overlay */
+        .nav-links a {
+            position: relative;
+            z-index: 10000;
         }
 
         @media (max-width: 768px) {
@@ -305,7 +313,7 @@
                 width: 80%;
                 max-width: 300px;
                 height: 100vh;
-                background: rgba(50, 50, 55, 0.98);
+                background: rgba(60, 60, 65, 0.98);
                 backdrop-filter: blur(20px);
                 -webkit-backdrop-filter: blur(20px);
                 z-index: 9999;
@@ -313,6 +321,7 @@
                 padding: 80px 20px 20px;
                 border-left: 3px solid rgba(255, 221, 0, 0.5);
                 box-shadow: -5px 0 20px rgba(0, 0, 0, 0.5);
+                pointer-events: auto;
             }
 
             nav.active {
@@ -341,7 +350,7 @@
                 display: flex;
                 align-items: center;
                 color: #ffffff !important;
-                background: rgba(255, 255, 255, 0.1);
+                background: rgba(255, 255, 255, 0.15);
                 border-radius: 10px;
                 border: 2px solid rgba(255, 255, 255, 0.2);
                 text-decoration: none;
@@ -490,29 +499,16 @@
             mobileMenuToggle.addEventListener('click', toggleMenu);
             menuOverlay.addEventListener('click', toggleMenu);
             
+            // Close menu when clicking nav links - ensure navigation works
             const navLinks = document.querySelectorAll('.nav-links a');
             navLinks.forEach(link => {
-                // Ensure links work on mobile
+                // Simple click handler - just close menu, don't interfere with navigation
                 link.addEventListener('click', function(e) {
-                    // Allow the link to work normally
                     if (window.innerWidth <= 768) {
-                        // Small delay to ensure navigation happens
-                        setTimeout(() => {
-                            toggleMenu();
-                        }, 100);
+                        // Close menu immediately
+                        toggleMenu();
                     }
-                });
-                
-                // Also handle touch events for mobile
-                link.addEventListener('touchend', function(e) {
-                    if (window.innerWidth <= 768) {
-                        e.preventDefault();
-                        window.location.href = this.href;
-                        setTimeout(() => {
-                            toggleMenu();
-                        }, 100);
-                    }
-                });
+                }, true); // Use capture phase to ensure it runs
             });
         }
     </script>
