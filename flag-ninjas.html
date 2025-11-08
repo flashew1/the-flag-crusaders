@@ -8,7 +8,7 @@
     <meta name="format-detection" content="telephone=no">
     <title>The Flag Ninjas - Report | The Flag Crusaders</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Playfair+Display:wght@700;900&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&family=Inter:wght@400;500;600;700;800;900&family=Playfair+Display:wght@700;900&display=swap');
         
         * {
             margin: 0;
@@ -56,19 +56,30 @@
         .logo {
             display: flex;
             align-items: center;
-            gap: 15px;
+            gap: 12px;
         }
 
         .logo-text {
-            font-size: 1.6rem;
+            font-family: 'Cinzel Decorative', 'Playfair Display', serif;
+            font-size: 2rem;
             font-weight: 700;
-            letter-spacing: 3px;
+            letter-spacing: 4px;
             text-transform: uppercase;
-            background: linear-gradient(135deg, #dc143c 0%, #ff6b6b 50%, #ffdd00 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            color: #ffdd66;
+            text-shadow: 0 6px 14px rgba(255, 221, 0, 0.2), 0 0 12px rgba(255, 221, 0, 0.12);
             transition: all 0.3s ease;
+            line-height: 1;
+        }
+        .logo-text .accent {
+            font-weight: 400;
+            letter-spacing: 6px;
+            color: #ffe087;
+        }
+
+        .logo:hover .logo-text {
+            color: #ffeaa1;
+            text-shadow: 0 8px 20px rgba(255, 221, 0, 0.32);
+            transform: translateY(-1px);
         }
 
         .nav-links {
@@ -95,22 +106,65 @@
 
         /* Page Header */
         .page-header {
-            background: linear-gradient(180deg, #0a0a0a 0%, #0f0f0f 100%);
+            background:
+                radial-gradient(circle at center 120px, rgba(70, 70, 95, 0.35) 0%, rgba(22, 22, 30, 0.12) 48%, transparent 72%),
+                linear-gradient(180deg, #0a0a0a 0%, #0f0f0f 100%);
             text-align: center;
-            padding: 100px 40px 60px;
+            padding: 130px 40px 90px;
             position: relative;
+            overflow: hidden;
             border-bottom: 3px solid rgba(220, 20, 60, 0.3);
         }
 
+        .page-header::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background:
+                radial-gradient(circle at center 32%, rgba(255, 255, 255, 0.24) 0%, rgba(18, 18, 24, 0.08) 46%, transparent 72%),
+                radial-gradient(circle at 20% 20%, rgba(220, 20, 60, 0.18), transparent 55%),
+                radial-gradient(circle at 80% 28%, rgba(255, 221, 0, 0.18), transparent 60%),
+                url('images/logo.jpg');
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: clamp(320px, 45vw, 520px);
+            opacity: 0.28;
+            filter: saturate(120%);
+            pointer-events: none;
+        }
+
+        .page-header::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(180deg, rgba(10, 10, 10, 0.45) 0%, rgba(10, 10, 10, 0.9) 85%);
+            pointer-events: none;
+        }
+
+        .page-header-inner {
+            position: relative;
+            z-index: 1;
+            max-width: 980px;
+            margin: 0 auto;
+        }
+
+        .page-header-emblem,
+        .page-header-emblem::before,
+        .page-header-emblem::after,
+        .page-header-emblem img,
+        .crest-fade {
+            display: none !important;
+        }
+
         .page-header h1 {
-            font-size: 3.5rem;
-            font-weight: 800;
+            font-family: 'Cinzel Decorative', 'Playfair Display', serif;
+            font-size: 3.6rem;
+            font-weight: 700;
             margin-bottom: 20px;
-            letter-spacing: -1px;
-            background: linear-gradient(135deg, #dc143c 0%, #ff6b6b 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            color: #ffdd66;
+            text-shadow: 0 8px 22px rgba(255, 221, 0, 0.25), 0 0 12px rgba(255, 221, 0, 0.15);
         }
 
         .page-header .subtitle {
@@ -469,8 +523,22 @@
             }
 
             .logo-text {
-                font-size: 1.2rem;
-                letter-spacing: 2px;
+                font-size: 1.4rem;
+                letter-spacing: 3px;
+            }
+
+            .page-header {
+                padding: 95px 20px 60px;
+            }
+
+            .page-header::before {
+                background-size: clamp(260px, 78vw, 420px);
+                opacity: 0.26;
+            }
+
+            .page-header-emblem {
+                width: min(250px, 82%);
+                margin-bottom: 24px;
             }
 
             nav {
@@ -559,10 +627,6 @@
                 background: rgba(255, 221, 0, 0.8);
             }
 
-            .page-header {
-                padding: 80px 20px 40px;
-            }
-
             .page-header h1 {
                 font-size: 2rem;
             }
@@ -587,13 +651,30 @@
         }
 
         @media (max-width: 480px) {
+            .page-header {
+                padding: 78px 16px 48px;
+            }
+
+            .page-header::before {
+                background-size: clamp(220px, 90vw, 320px);
+            }
+
+            .page-header-emblem {
+                width: min(210px, 80%);
+                margin-bottom: 20px;
+            }
+
+            .page-header-emblem img {
+                padding: clamp(10px, 8vw, 16px);
+            }
+
             .page-header h1 {
                 font-size: 1.75rem;
             }
 
             .logo-text {
-                font-size: 1rem;
-                letter-spacing: 1px;
+                font-size: 1.3rem;
+                letter-spacing: 3px;
             }
 
             nav {
@@ -607,7 +688,7 @@
     <header class="header">
         <div class="header-content">
             <div class="logo">
-                <div class="logo-text">⚔️ THE FLAG CRUSADERS</div>
+                <div class="logo-text"><span class="accent">The</span> Flag Crusaders</div>
             </div>
             <button class="mobile-menu-toggle" id="mobileMenuToggle" aria-label="Toggle menu">☰</button>
             <nav id="mainNav">
@@ -626,8 +707,10 @@
 
     <!-- Page Header -->
     <section class="page-header">
-        <h1>⚠️ The Flag Ninjas Report ⚠️</h1>
-        <p class="subtitle">Official Documentation of Criminal Activity Against The Flag Crusaders</p>
+        <div class="page-header-inner">
+            <h1>The Flag Ninjas Report</h1>
+            <p class="subtitle">Official Documentation of Criminal Activity Against The Flag Crusaders</p>
+        </div>
     </section>
 
     <!-- Report Content -->

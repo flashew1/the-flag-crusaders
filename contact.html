@@ -8,7 +8,7 @@
     <meta name="format-detection" content="telephone=no">
     <title>Contact - The Flag Crusaders</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Playfair+Display:wght@700;900&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&family=Inter:wght@400;500;600;700;800;900&family=Playfair+Display:wght@700;900&display=swap');
         
         * {
             margin: 0;
@@ -56,19 +56,31 @@
         .logo {
             display: flex;
             align-items: center;
-            gap: 15px;
+            gap: 12px;
         }
 
         .logo-text {
-            font-size: 1.6rem;
+            font-family: 'Cinzel Decorative', 'Playfair Display', serif;
+            font-size: 2rem;
             font-weight: 700;
-            letter-spacing: 3px;
+            letter-spacing: 4px;
             text-transform: uppercase;
-            background: linear-gradient(135deg, #dc143c 0%, #ff6b6b 50%, #ffdd00 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            color: #ffdd66;
+            text-shadow: 0 6px 14px rgba(255, 221, 0, 0.2), 0 0 12px rgba(255, 221, 0, 0.12);
             transition: all 0.3s ease;
+            line-height: 1;
+        }
+
+        .logo-text .accent {
+            font-weight: 400;
+            letter-spacing: 6px;
+            color: #ffe087;
+        }
+
+        .logo:hover .logo-text {
+            color: #ffeaa1;
+            text-shadow: 0 8px 20px rgba(255, 221, 0, 0.32);
+            transform: translateY(-1px);
         }
 
         .nav-links {
@@ -95,10 +107,53 @@
 
         /* Page Header */
         .page-header {
-            background: linear-gradient(180deg, #0a0a0a 0%, #0f0f0f 100%);
+            background:
+                radial-gradient(circle at center 110px, rgba(70, 70, 95, 0.32) 0%, rgba(22, 22, 30, 0.12) 48%, transparent 72%),
+                linear-gradient(180deg, #0a0a0a 0%, #0f0f0f 100%);
             text-align: center;
-            padding: 100px 40px 60px;
+            padding: 120px 40px 80px;
             position: relative;
+            overflow: hidden;
+        }
+
+        .page-header::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background:
+                radial-gradient(circle at center 30%, rgba(255, 255, 255, 0.24) 0%, rgba(18, 18, 24, 0.08) 44%, transparent 72%),
+                radial-gradient(circle at 20% 20%, rgba(220, 20, 60, 0.16), transparent 55%),
+                radial-gradient(circle at 80% 25%, rgba(255, 221, 0, 0.22), transparent 60%),
+                url('images/logo.jpg');
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: clamp(320px, 45vw, 480px);
+            opacity: 0.26;
+            filter: saturate(115%);
+            pointer-events: none;
+        }
+
+        .page-header::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(180deg, rgba(10, 10, 10, 0.4) 0%, rgba(10, 10, 10, 0.85) 80%);
+            pointer-events: none;
+        }
+
+        .page-header-inner {
+            position: relative;
+            z-index: 1;
+            max-width: 920px;
+            margin: 0 auto;
+        }
+
+        .page-header-emblem,
+        .page-header-emblem::before,
+        .page-header-emblem::after,
+        .page-header-emblem img,
+        .crest-fade {
+            display: none !important;
         }
 
         .page-header h1 {
@@ -360,9 +415,10 @@
             }
 
             .logo-text {
-                font-size: 1.2rem;
-                letter-spacing: 2px;
+                font-size: 1.4rem;
+                letter-spacing: 3px;
             }
+
 
             nav {
                 position: fixed;
@@ -451,7 +507,17 @@
             }
 
             .page-header {
-                padding: 80px 20px 40px;
+                padding: 90px 20px 55px;
+            }
+
+            .page-header::before {
+                background-size: clamp(260px, 80vw, 380px);
+                opacity: 0.24;
+            }
+
+            .page-header-emblem {
+                width: min(240px, 80%);
+                margin-bottom: 24px;
             }
 
             .page-header h1 {
@@ -482,6 +548,18 @@
         }
 
         @media (max-width: 480px) {
+            .page-header {
+                padding: 80px 16px 45px;
+            }
+
+            .page-header::before {
+                background-size: clamp(220px, 88vw, 320px);
+            }
+
+            .page-header-emblem {
+                width: min(210px, 78%);
+            }
+
             .page-header h1 {
                 font-size: 1.75rem;
             }
@@ -502,7 +580,7 @@
     <header class="header">
         <div class="header-content">
             <div class="logo">
-                <div class="logo-text">⚔️ THE FLAG CRUSADERS</div>
+                <div class="logo-text"><span class="accent">The</span> Flag Crusaders</div>
             </div>
             <button class="mobile-menu-toggle" id="mobileMenuToggle" aria-label="Toggle menu">☰</button>
             <nav id="mainNav">
@@ -521,8 +599,10 @@
 
     <!-- Page Header -->
     <section class="page-header">
-        <h1>Contact Us</h1>
-        <p style="color: #ffdd00; font-size: 1.2rem; margin-top: 20px;">Get in Touch with The Flag Crusaders</p>
+        <div class="page-header-inner">
+            <h1>Contact Us</h1>
+            <p style="color: #ffdd00; font-size: 1.2rem; margin-top: 20px;">Get in Touch with The Flag Crusaders</p>
+        </div>
     </section>
 
     <!-- Page Content -->

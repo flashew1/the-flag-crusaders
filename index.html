@@ -8,7 +8,7 @@
     <meta name="format-detection" content="telephone=no">
     <title>The Flag Crusaders - Knights of England | Protecting British Values</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Playfair+Display:wght@700;900&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&family=Inter:wght@400;500;600;700;800;900&family=Playfair+Display:wght@700;900&display=swap');
         
         * {
             margin: 0;
@@ -57,19 +57,31 @@
         .logo {
             display: flex;
             align-items: center;
-            gap: 15px;
+            gap: 12px;
         }
 
         .logo-text {
-            font-size: 1.6rem;
+            font-family: 'Cinzel Decorative', 'Playfair Display', serif;
+            font-size: 2rem;
             font-weight: 700;
-            letter-spacing: 3px;
+            letter-spacing: 4px;
             text-transform: uppercase;
-            background: linear-gradient(135deg, #dc143c 0%, #ff6b6b 50%, #ffdd00 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            color: #ffdd66;
+            text-shadow: 0 6px 14px rgba(255, 221, 0, 0.2), 0 0 12px rgba(255, 221, 0, 0.12);
             transition: all 0.3s ease;
+            line-height: 1;
+        }
+
+        .logo-text .accent {
+            font-weight: 400;
+            letter-spacing: 6px;
+            color: #ffe087;
+        }
+
+        .logo:hover .logo-text {
+            color: #ffeaa1;
+            text-shadow: 0 8px 20px rgba(255, 221, 0, 0.32);
+            transform: translateY(-1px);
         }
 
         .nav-links {
@@ -94,6 +106,49 @@
             transform: translateY(-1px);
         }
 
+        .hero-emblem {
+            width: min(360px, 74%);
+            margin: 0 auto 45px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero-emblem::before {
+            content: '';
+            position: absolute;
+            inset: -26%;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(255, 221, 0, 0.32) 0%, rgba(12, 12, 12, 0.05) 52%, transparent 82%);
+            filter: blur(15px);
+            z-index: -2;
+        }
+
+        .hero-emblem::after {
+            content: '';
+            position: absolute;
+            inset: -8%;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.12) 0%, rgba(10, 10, 10, 0.03) 68%, transparent 100%);
+            z-index: -1;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.45);
+        }
+
+        .hero-emblem-image {
+            width: 100%;
+            height: auto;
+            display: block;
+            filter: drop-shadow(0 25px 45px rgba(0, 0, 0, 0.55));
+        }
+
+        .hero-fade {
+            -webkit-mask-image: radial-gradient(circle at center, rgba(0, 0, 0, 1) 48%, rgba(0, 0, 0, 0.06) 68%, rgba(0, 0, 0, 0) 100%);
+            mask-image: radial-gradient(circle at center, rgba(0, 0, 0, 1) 48%, rgba(0, 0, 0, 0.06) 68%, rgba(0, 0, 0, 0) 100%);
+            -webkit-mask-repeat: no-repeat;
+            mask-repeat: no-repeat;
+            -webkit-mask-size: contain;
+            mask-size: contain;
+        }
+
         /* Hero Section */
         .hero {
             min-height: 90vh;
@@ -102,8 +157,39 @@
             justify-content: center;
             text-align: center;
             padding: 100px 40px;
-            background: linear-gradient(180deg, #0a0a0a 0%, #0f0f0f 100%);
+            background:
+                radial-gradient(circle at center top 140px, rgba(70, 70, 90, 0.32) 0%, rgba(25, 25, 32, 0.12) 45%, transparent 72%),
+                linear-gradient(180deg, #0a0a0a 0%, #0f0f0f 100%);
             position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background:
+                radial-gradient(circle at center 35%, rgba(255, 255, 255, 0.22) 0%, rgba(18, 18, 22, 0.06) 46%, transparent 72%),
+                linear-gradient(135deg, rgba(10, 10, 10, 0.6), rgba(10, 10, 10, 0.55)),
+                url('images/hero-banner.jpg'),
+                radial-gradient(circle at 20% 25%, rgba(220, 20, 60, 0.2), transparent 55%),
+                radial-gradient(circle at 80% 30%, rgba(255, 221, 0, 0.18), transparent 60%),
+                url('images/logo.jpg');
+            background-repeat: no-repeat, no-repeat, no-repeat, no-repeat, no-repeat;
+            background-position: center, center, 20% 25%, 80% 30%, center;
+            background-size: cover, cover, auto, auto, clamp(320px, 48vw, 540px);
+            opacity: 0.26;
+            filter: saturate(120%);
+            pointer-events: none;
+            transform: translateY(0);
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(180deg, rgba(10, 10, 10, 0.4) 0%, rgba(10, 10, 10, 0.85) 80%);
+            pointer-events: none;
         }
 
         .hero-content {
@@ -122,6 +208,7 @@
             -webkit-text-fill-color: transparent;
             background-clip: text;
             animation: fadeInUp 0.8s ease-out;
+            text-transform: uppercase;
         }
         
         @keyframes fadeInUp {
@@ -819,8 +906,8 @@
             }
 
             .logo-text {
-                font-size: 1.2rem;
-                letter-spacing: 2px;
+                font-size: 1.4rem;
+                letter-spacing: 3px;
             }
 
             nav {
@@ -917,6 +1004,11 @@
                 padding: 60px 20px;
             }
 
+            .hero::before {
+                background-size: clamp(260px, 70vw, 420px);
+                opacity: 0.26;
+            }
+
             .hero h1 {
                 font-size: 2rem;
                 line-height: 1.2;
@@ -929,6 +1021,15 @@
             .hero-description {
                 font-size: 1rem;
                 padding: 0 10px;
+            }
+
+            .hero-emblem {
+                width: min(280px, 75%);
+                margin-bottom: 24px;
+            }
+
+            .hero-emblem-image {
+                padding: clamp(14px, 6vw, 22px);
             }
 
             .section {
@@ -1017,7 +1118,7 @@
     <header class="header">
         <div class="header-content">
             <div class="logo">
-                <div class="logo-text">⚔️ THE FLAG CRUSADERS</div>
+                <div class="logo-text"><span class="accent">The</span> Flag Crusaders</div>
             </div>
             <button class="mobile-menu-toggle" id="mobileMenuToggle" aria-label="Toggle menu">☰</button>
             <nav id="mainNav">
@@ -1037,6 +1138,11 @@
     <!-- Hero Section -->
     <section class="hero" id="home">
         <div class="hero-content">
+            <div class="hero-emblem" aria-hidden="true">
+                <img src="images/logo.jpg" alt="The Flag Crusaders crest" class="hero-emblem-image hero-fade">
+            </div>
+            <h1>The Flag Crusaders</h1>
+            <p class="hero-subtitle">Knights of England • Defenders of British Values</p>
             <p class="hero-description">
                 We are proud Patriots of England. We flag lamp posts across the UK, 
                 we protect our children and women, we stand up for British values, 

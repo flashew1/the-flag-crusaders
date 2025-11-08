@@ -8,7 +8,7 @@
     <meta name="format-detection" content="telephone=no">
     <title>Newsletter - The Flag Crusaders</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Playfair+Display:wght@700;900&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&family=Inter:wght@400;500;600;700;800;900&family=Playfair+Display:wght@700;900&display=swap');
         
         * {
             margin: 0;
@@ -46,15 +46,32 @@
             align-items: center;
         }
 
+        .logo {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            gap: 12px;
+        }
         .logo-text {
-            font-size: 1.8rem;
+            font-family: 'Cinzel Decorative', 'Playfair Display', serif;
+            font-size: 2rem;
             font-weight: 700;
             letter-spacing: 4px;
             text-transform: uppercase;
-            background: linear-gradient(135deg, #dc143c, #ffdd00);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            color: #ffdd66;
+            text-shadow: 0 6px 14px rgba(255, 221, 0, 0.2), 0 0 12px rgba(255, 221, 0, 0.12);
+            transition: all 0.3s ease;
+            line-height: 1;
+        }
+        .logo-text .accent {
+            font-weight: 400;
+            letter-spacing: 6px;
+            color: #ffe087;
+        }
+        .logo:hover .logo-text {
+            color: #ffeaa1;
+            text-shadow: 0 8px 20px rgba(255, 221, 0, 0.32);
+            transform: translateY(-1px);
         }
 
         .nav-links {
@@ -80,7 +97,9 @@
 
         /* Newsletter Section */
         .newsletter-section {
-            background: linear-gradient(135deg, #0f0f0f, #1a1a1a);
+            background:
+                radial-gradient(circle at center top 140px, rgba(70, 70, 95, 0.32) 0%, rgba(25, 25, 32, 0.12) 45%, transparent 72%),
+                linear-gradient(135deg, #0f0f0f, #1a1a1a);
             padding: 80px 20px;
             text-align: center;
             border-top: 2px solid rgba(220, 20, 60, 0.3);
@@ -89,6 +108,33 @@
             display: flex;
             align-items: center;
             justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .newsletter-section::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background:
+                radial-gradient(circle at center 32%, rgba(255, 255, 255, 0.22) 0%, rgba(18, 18, 24, 0.08) 46%, transparent 72%),
+                radial-gradient(circle at 18% 20%, rgba(220, 20, 60, 0.18), transparent 55%),
+                radial-gradient(circle at 82% 25%, rgba(255, 221, 0, 0.18), transparent 60%),
+                url('images/logo.jpg');
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: clamp(320px, 42vw, 460px);
+            opacity: 0.24;
+            filter: saturate(125%);
+            pointer-events: none;
+        }
+
+        .newsletter-section::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(180deg, rgba(15, 15, 15, 0.55) 0%, rgba(15, 15, 15, 0.88) 80%);
+            pointer-events: none;
         }
 
         .newsletter-content {
@@ -100,6 +146,24 @@
             padding: 60px 50px;
             border-radius: 24px;
             border: 1px solid rgba(255, 255, 255, 0.08);
+            position: relative;
+            z-index: 1;
+        }
+
+        .newsletter-emblem,
+        .newsletter-emblem::before,
+        .newsletter-emblem::after,
+        .newsletter-emblem img {
+            display: none !important;
+        }
+
+        .crest-fade {
+            -webkit-mask-image: radial-gradient(circle at center, rgba(0, 0, 0, 1) 62%, rgba(0, 0, 0, 0) 98%);
+            mask-image: radial-gradient(circle at center, rgba(0, 0, 0, 1) 62%, rgba(0, 0, 0, 0) 98%);
+            -webkit-mask-repeat: no-repeat;
+            mask-repeat: no-repeat;
+            -webkit-mask-size: contain;
+            mask-size: contain;
         }
 
         .newsletter-content h2 {
@@ -288,9 +352,25 @@
                 display: block;
             }
 
+            .logo {
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                gap: 12px;
+            }
             .logo-text {
-                font-size: 1.2rem;
-                letter-spacing: 2px;
+                font-size: 1.4rem;
+                letter-spacing: 3px;
+            }
+
+            .newsletter-section::before {
+                background-size: clamp(260px, 80vw, 380px);
+                opacity: 0.28;
+            }
+
+            .newsletter-emblem {
+                width: min(230px, 78%);
+                margin-bottom: 24px;
             }
 
             nav {
@@ -400,6 +480,14 @@
                 letter-spacing: 1px;
             }
 
+            .newsletter-section::before {
+                background-size: clamp(220px, 90vw, 320px);
+            }
+
+            .newsletter-emblem {
+                width: min(200px, 78%);
+            }
+
             nav {
                 width: 85%;
             }
@@ -415,7 +503,7 @@
     <header class="header">
         <div class="header-content">
             <div class="logo">
-                <div class="logo-text">⚔️ THE FLAG CRUSADERS</div>
+                <div class="logo-text"><span class="accent">The</span> Flag Crusaders</div>
             </div>
             <button class="mobile-menu-toggle" id="mobileMenuToggle" aria-label="Toggle menu">☰</button>
             <nav id="mainNav">

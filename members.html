@@ -8,7 +8,7 @@
     <meta name="format-detection" content="telephone=no">
     <title>Members Area - The Flag Crusaders</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Playfair+Display:wght@700;900&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&family=Inter:wght@400;500;600;700;800;900&family=Playfair+Display:wght@700;900&display=swap');
         
         * {
             margin: 0;
@@ -56,20 +56,30 @@
 
         .logo {
             display: flex;
+            flex-direction: row;
             align-items: center;
-            gap: 15px;
+            gap: 12px;
         }
-
         .logo-text {
-            font-size: 1.6rem;
+            font-family: 'Cinzel Decorative', 'Playfair Display', serif;
+            font-size: 2rem;
             font-weight: 700;
-            letter-spacing: 3px;
+            letter-spacing: 4px;
             text-transform: uppercase;
-            background: linear-gradient(135deg, #dc143c 0%, #ff6b6b 50%, #ffdd00 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            color: #ffdd66;
+            text-shadow: 0 6px 14px rgba(255, 221, 0, 0.2), 0 0 12px rgba(255, 221, 0, 0.12);
             transition: all 0.3s ease;
+            line-height: 1;
+        }
+        .logo-text .accent {
+            font-weight: 400;
+            letter-spacing: 6px;
+            color: #ffe087;
+        }
+        .logo:hover .logo-text {
+            color: #ffeaa1;
+            text-shadow: 0 8px 20px rgba(255, 221, 0, 0.32);
+            transform: translateY(-1px);
         }
 
         .nav-links {
@@ -101,6 +111,8 @@
             align-items: center;
             justify-content: center;
             padding: 60px 20px;
+            background:
+                radial-gradient(circle at center 160px, rgba(70, 70, 95, 0.28) 0%, rgba(22, 22, 30, 0.12) 46%, transparent 70%);
         }
 
         .login-box {
@@ -114,6 +126,46 @@
             width: 100%;
             text-align: center;
             box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .login-box::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background:
+                radial-gradient(circle at center 32%, rgba(255, 255, 255, 0.22) 0%, rgba(18, 18, 24, 0.08) 46%, transparent 72%),
+                radial-gradient(circle at 20% 20%, rgba(220, 20, 60, 0.18), transparent 55%),
+                radial-gradient(circle at 80% 25%, rgba(255, 221, 0, 0.18), transparent 60%),
+                url('images/logo.jpg');
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: clamp(260px, 48vw, 360px);
+            opacity: 0.22;
+            filter: saturate(118%);
+            pointer-events: none;
+        }
+
+        .login-box::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(180deg, rgba(10, 10, 10, 0.45) 0%, rgba(10, 10, 10, 0.88) 85%);
+            pointer-events: none;
+        }
+
+        .login-box-inner {
+            position: relative;
+            z-index: 1;
+        }
+
+        .login-emblem,
+        .login-emblem::before,
+        .login-emblem::after,
+        .login-emblem img,
+        .crest-fade {
+            display: none !important;
         }
 
         .login-box h2 {
@@ -437,9 +489,25 @@
                 display: block;
             }
 
+            .logo {
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                gap: 12px;
+            }
             .logo-text {
-                font-size: 1.2rem;
-                letter-spacing: 2px;
+                font-size: 1.4rem;
+                letter-spacing: 3px;
+            }
+
+            .login-box::before {
+                background-size: clamp(220px, 80vw, 340px);
+                opacity: 0.26;
+            }
+
+            .login-emblem {
+                width: min(200px, 82%);
+                margin-bottom: 20px;
             }
 
             nav {
@@ -560,6 +628,14 @@
                 letter-spacing: 1px;
             }
 
+            .login-box::before {
+                background-size: clamp(200px, 90vw, 300px);
+            }
+
+            .login-emblem {
+                width: min(170px, 78%);
+            }
+
             nav {
                 width: 85%;
             }
@@ -571,7 +647,7 @@
     <header class="header">
         <div class="header-content">
             <div class="logo">
-                <div class="logo-text">⚔️ THE FLAG CRUSADERS</div>
+                <div class="logo-text"><span class="accent">The</span> Flag Crusaders</div>
             </div>
             <button class="mobile-menu-toggle" id="mobileMenuToggle" aria-label="Toggle menu">☰</button>
             <nav id="mainNav">
@@ -591,37 +667,39 @@
     <!-- Login Screen -->
     <div class="login-container" id="loginScreen">
         <div class="login-box">
-            <h2>🔒 Members Only Area</h2>
-            <p>Exclusive content for Flag Crusaders supporters</p>
-            
-            <div class="donate-note">
-                <strong>⚔️ Become a Member</strong>
-                <p>Membership is granted to those who support our mission through donations. After donating, you will receive exclusive access credentials to this members-only area containing:</p>
-                <ul style="margin-top: 10px; padding-left: 20px; color: #d0d0d0;">
-                    <li>Exclusive Flag Ninjas intelligence and updates</li>
-                    <li>Behind-the-scenes mission reports</li>
-                    <li>Early access to new information</li>
-                    <li>Direct communication channels</li>
-                </ul>
-                <p style="margin-top: 15px; color: #ffdd00;">
-                    <a href="donate.html" style="color: #ffdd00; text-decoration: underline; font-weight: 600;">Donate now to gain access →</a>
-                </p>
-            </div>
+            <div class="login-box-inner">
+                <h2>🔒 Members Only Area</h2>
+                <p>Exclusive content for Flag Crusaders supporters</p>
+                
+                <div class="donate-note">
+                    <strong>⚔️ Become a Member</strong>
+                    <p>Membership is granted to those who support our mission through donations. After donating, you will receive exclusive access credentials to this members-only area containing:</p>
+                    <ul style="margin-top: 10px; padding-left: 20px; color: #d0d0d0;">
+                        <li>Exclusive Flag Ninjas intelligence and updates</li>
+                        <li>Behind-the-scenes mission reports</li>
+                        <li>Early access to new information</li>
+                        <li>Direct communication channels</li>
+                    </ul>
+                    <p style="margin-top: 15px; color: #ffdd00;">
+                        <a href="donate.html" style="color: #ffdd00; text-decoration: underline; font-weight: 600;">Donate now to gain access →</a>
+                    </p>
+                </div>
 
-            <form id="loginForm">
-                <div class="error-message" id="errorMessage">
-                    Invalid access credentials. Please check your username and password.
-                </div>
-                <div class="form-group">
-                    <label for="username">Username / Access Code</label>
-                    <input type="text" id="username" name="username" required autocomplete="username">
-                </div>
-                <div class="form-group">
-                    <label for="password">Password</label>
-                    <input type="password" id="password" name="password" required autocomplete="current-password">
-                </div>
-                <button type="submit" class="btn btn-primary">Access Members Area</button>
-            </form>
+                <form id="loginForm">
+                    <div class="error-message" id="errorMessage">
+                        Invalid access credentials. Please check your username and password.
+                    </div>
+                    <div class="form-group">
+                        <label for="username">Username / Access Code</label>
+                        <input type="text" id="username" name="username" required autocomplete="username">
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <input type="password" id="password" name="password" required autocomplete="current-password">
+                    </div>
+                    <button type="submit" class="btn btn-primary">Access Members Area</button>
+                </form>
+            </div>
         </div>
     </div>
 
